@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        .container {
+            background-color: black;
+            width: 800px;
+            height: 360px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            width: 138px;
+            height: 69px;
+            border-radius: 3px;
+            border: 6px solid black;
+            margin: 4px 4px;
+        }
+
+        .recording {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+        }
+
+        .leave {
+            width: 50px;
+            height: 20px;
+            border-radius: 30%;
+            background-color: red;
+            color: white;
+            position: absolute;
+            margin-left: 750px;
+            margin-top: 335px;
+        }
+        .item {
+            color: white;
+        }
+
+    </style>
+
+    <script src="libs/howler.js"></script>
+
+    <title>ZoomClass</title>
+</head>
+<body>
+    <div class="recording"></div>
+    <div class="container"><div class="leave"><a class="item" href="http://www.socalledsidefx.com">LEAVE</div></div>
+
+
+</body>
+
+<script>
+const numImgs = 13;
+const imgPaths = Array.from({ length: numImgs });
+imgPaths.forEach((e,i) => { imgPaths[i]=`img/${i}.jpg`;});
+const makeImg = () => document.createElement('img');
+const imgs = Array.from({ length: numImgs }, ()=>makeImg());
+console.log(imgs);
+
+const playSound = (sound) => { sound.play(); }
+const numSounds = 13;
+const sounds = Array.from({ length: numSounds}, (e, i) => new Howl({ src: `sounds/${i}.mp3`, html5: false, volume: 0.9, loop: false }));
+const getRandomColor = () => `#${Math.floor(Math.random()*16777215).toString(16)}`; 
+const colors = Array.from({ length: numSounds }, () => getRandomColor() );
+console.log(colors);
+
+const images = [];
+images[0]="url(img/0.jpg)";
+images[1]="url(img/1.jpg)";
+images[2]="url(img/2.jpg)";
+images[3]="url(img/3.jpg)";
+images[4]="url(img/4.jpg)";
+images[5]="url(img/5.jpg)";
+images[6]="url(img/6.jpg)";
+images[7]="url(img/7.jpg)";
+images[8]="url(img/8.jpg)";
+images[9]="url(img/9.jpg)";
+images[10]="url(img/10.jpg)";
+images[11]="url(img/11.jpg)";
+images[12]="url(img/12.jpg)";
+
+
+const container = document.querySelector('.container');
+const numButtons = numSounds;
+const makeDiv = (index) => {
+    div = document.createElement('div');
+    div.className='button';
+    div.style.backgroundImage=images[index];
+    return div
+    };
+            
+
+const buttons = Array.from({ length: numButtons}, (element, index) => makeDiv(index));
+console.log(buttons);
+buttons.forEach(button => container.appendChild(button));
+
+buttons.forEach( (button, index) => {
+    button.addEventListener('click', () => {
+        playSound(sounds[index])
+    })
+})
+
+</script>
+</html>
